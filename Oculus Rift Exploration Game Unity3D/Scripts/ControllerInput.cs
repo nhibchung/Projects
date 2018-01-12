@@ -13,7 +13,6 @@ public class ControllerInput : MonoBehaviour {
     private bool cooldownExpired = true; //okay to shoot
     private bool noArrow = true;
 
-
     // Update is called once per frame
     void Update()
     {
@@ -33,18 +32,6 @@ public class ControllerInput : MonoBehaviour {
             noArrow = true;
             cooldownExpired = false;
             StartCoroutine(WeaponEffect());
-        }
-    }
-
-    private void RaycastWeapon()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(weaponTransform.position, weaponTransform.forward, out hit))
-        {
-            if (hit.collider.gameObject.CompareTag("shootable"))
-            {
-                Destroy(hit.collider.gameObject);
-            }
         }
     }
 
