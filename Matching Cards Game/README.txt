@@ -1,0 +1,3 @@
+- The Scripts folder only contains scripts used in the project.
+- Download and import the Unity package to see complete project.
+- Unity version used: 2019.x LTS
