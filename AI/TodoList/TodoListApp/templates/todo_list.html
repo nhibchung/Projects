@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Todos - Todo App{% endblock %}
+
+{% block header %}Your Todos{% endblock %}
+
+{% block extra_head %}
+<style>
+    table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+    th, td { padding: 1rem 1.25rem; border: 1px solid #ddd; text-align: left; vertical-align: top; }
+    th { background: #f4f4f4; }
+    tbody tr { background: white; border-radius: 8px; overflow: hidden; }
+    tbody tr td:first-child { width: 30%; }
+    tbody tr td:nth-child(2) { width: 20%; }
+    tbody tr td:nth-child(3) { width: 20%; }
+    tbody tr td.actions { width: 30%; }
+    .actions a { display: inline-block; margin: 0.25rem 0.5rem 0 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+    <p><a class="button" href="{% url 'todo_create' %}">Create new todo</a></p>
+
+    {% if object_list %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in object_list %}
+                    <tr>
+                        <td class="{% if todo.completed %}completed{% endif %}">{{ todo.title }}</td>
+                        <td>{{ todo.due_date|default:'—' }}</td>
+                        <td>{{ todo.completed|yesno:'Resolved,Pending' }}</td>
+                        <td class="actions">
+                            {% if todo.completed %}
+                                <a class="button" href="{% url 'todo_toggle' todo.pk %}">Unresolve</a>
+                            {% else %}
+                                <a class="button success" href="{% url 'todo_toggle' todo.pk %}">Resolve</a>
+                            {% endif %}
+                            <a class="button secondary" href="{% url 'todo_edit' todo.pk %}">Edit</a>
+                            <a class="button danger" href="{% url 'todo_delete' todo.pk %}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No todos yet. Create one to get started.</p>
+    {% endif %}
+{% endblock %}

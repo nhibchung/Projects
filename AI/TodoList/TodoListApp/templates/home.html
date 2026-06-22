@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Todo App{% endblock %}
+
+{% block header %}Welcome to Todo App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Manage your todos</h2>
+    <p>Use this app to create, update, resolve, and delete todo items.</p>
+    <p><a class="button" href="{% url 'todo_list' %}">View todos</a></p>
+</div>
+{% endblock %}
